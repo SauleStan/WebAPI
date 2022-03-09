@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models;
+using WebAPI.Models.DTO;
 using WebAPI.Repositories;
 
 namespace WebAPI.Controllers
@@ -37,8 +38,9 @@ namespace WebAPI.Controllers
 
         // POST api/<ItemsController>
         [HttpPost]
-        public void AddItem([FromBody] Item item)
+        public void AddItem([FromBody] ItemNoIdDto newItem)
         {
+            Item item = new(newItem.Name, newItem.Price);
             _itemsRepository.AddItem(item);
         }
 
