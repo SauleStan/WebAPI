@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models;
+using WebAPI.Repositories;
 
 namespace WebAPI.Controllers
 {
@@ -7,11 +8,13 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ItemsController : ControllerBase
     {
+        private readonly IItemsRepository _itemsRepository = new InMemDb();
         // GET: api/<ItemsController>
         [HttpGet]
         public IEnumerable<Item> GetItems()
         {
-            throw new NotImplementedException();
+            var items = _itemsRepository.GetItems();
+            return items;
         }
 
         // GET api/<ItemsController>/{id}
