@@ -53,9 +53,9 @@ namespace WebAPI.Controllers
 
         // DELETE api/<ItemsController>/{id}
         [HttpDelete("{id}")]
-        public void DeleteItem(int id)
+        public void DeleteItem(Guid id)
         {
-            throw new NotImplementedException();
+            _itemsRepository.DeleteItem(id);
         }
     }
 }
