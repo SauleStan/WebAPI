@@ -46,9 +46,9 @@ namespace WebAPI.Controllers
 
         // PUT api/<ItemsController>/{id}
         [HttpPut("{id}")]
-        public void PutItem(int id, [FromBody] Item item)
+        public void PutItem(Guid id, [FromBody] Item item)
         {
-            throw new NotImplementedException();
+            _itemsRepository.UpdateItem(id, item);
         }
 
         // DELETE api/<ItemsController>/{id}

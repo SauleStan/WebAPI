@@ -32,7 +32,11 @@ namespace WebAPI.Repositories
 
         public void UpdateItem(Guid id, Item item)
         {
-            throw new NotImplementedException();
+            foreach( var itemInList in ItemsList.Where(item => item.Id == id))
+            {
+                itemInList.Name = item.Name;
+                itemInList.Price = item.Price;
+            }
         }
     }
 }
