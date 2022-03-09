@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public void AddItem([FromBody] Item item)
         {
-            throw new NotImplementedException();
+            _itemsRepository.AddItem(item);
         }
 
         // PUT api/<ItemsController>/{id}

@@ -10,6 +10,11 @@ namespace WebAPI.Repositories
             new Item("Pocket Knife", 2)
         };
 
+        public void AddItem(Item item)
+        {
+            ItemsList.Add(item);
+        }
+
         public void DeleteItem(Guid id)
         {
             ItemsList.RemoveAll(item => item.Id == id);
