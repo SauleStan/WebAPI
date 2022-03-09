@@ -46,7 +46,7 @@ namespace WebAPI.Controllers
 
         // PUT api/<ItemsController>/{id}
         [HttpPut("{id}")]
-        public void PutItem(Guid id, [FromBody] Item item)
+        public void UpdateItem(Guid id, [FromBody] Item item)
         {
             _itemsRepository.UpdateItem(id, item);
         }
