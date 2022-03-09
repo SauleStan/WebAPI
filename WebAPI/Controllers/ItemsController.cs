@@ -8,7 +8,13 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ItemsController : ControllerBase
     {
-        private readonly IItemsRepository _itemsRepository = new InMemDb();
+        private readonly IItemsRepository _itemsRepository;
+
+        public ItemsController(IItemsRepository repository)
+        {
+            _itemsRepository = repository;
+        }
+
         // GET: api/<ItemsController>
         [HttpGet]
         public IEnumerable<Item> GetItems()
@@ -19,9 +25,14 @@ namespace WebAPI.Controllers
 
         // GET api/<ItemsController>/{id}
         [HttpGet("{id}")]
-        public Item GetItem(int id)
+        public ActionResult<Item> GetItem(Guid id)
         {
-            throw new NotImplementedException();
+            var item = _itemsRepository.GetItem(id);
+            if (item is null)
+            {
+                return NotFound();
+            }
+            return item;
         }
 
         // POST api/<ItemsController>

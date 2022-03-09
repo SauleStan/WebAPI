@@ -17,8 +17,7 @@ namespace WebAPI.Repositories
 
         public Item GetItem(Guid id)
         {
-            var item = ItemsList.FirstOrDefault(item => item.Id == id);
-            return item;
+            return ItemsList.SingleOrDefault(item => item.Id == id);
         }
 
         public IEnumerable<Item> GetItems()
