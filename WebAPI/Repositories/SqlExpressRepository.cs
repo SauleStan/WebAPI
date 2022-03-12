@@ -34,7 +34,7 @@ namespace WebAPI.Repositories
 
         public void UpdateItem(Guid id, Item item)
         {
-            var dbItem = _dataContext.Find<Item>(id);
+            var dbItem = GetItem(id);
             dbItem.Name = item.Name;
             dbItem.Price = item.Price;
             _dataContext.Update(dbItem);
