@@ -33,7 +33,11 @@ namespace WebAPI.Repositories
 
         public void UpdateItem(Guid id, Item item)
         {
-            throw new NotImplementedException();
+            var dbItem = _dataContext.Find<Item>(id);
+            dbItem.Name = item.Name;
+            dbItem.Price = item.Price;
+            _dataContext.Update(dbItem);
+            _dataContext.SaveChanges();
         }
     }
 }
