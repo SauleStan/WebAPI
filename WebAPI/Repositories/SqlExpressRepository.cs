@@ -22,7 +22,7 @@ namespace WebAPI.Repositories
 
         public Item GetItem(Guid id)
         {
-            throw new NotImplementedException();
+            return _dataContext.Find<Item>(id);
         }
 
         public IEnumerable<Item> GetItems()
