@@ -12,7 +12,8 @@ namespace WebAPI.Repositories
         }
         public void AddItem(Item item)
         {
-            throw new NotImplementedException();
+            _dataContext.Items.Add(item);
+            _dataContext.SaveChanges();
         }
 
         public void DeleteItem(Guid id)
