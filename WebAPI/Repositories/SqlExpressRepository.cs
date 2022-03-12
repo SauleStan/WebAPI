@@ -18,7 +18,8 @@ namespace WebAPI.Repositories
 
         public void DeleteItem(Guid id)
         {
-            throw new NotImplementedException();
+            _dataContext.Remove(GetItem(id));
+            _dataContext.SaveChanges();
         }
 
         public Item GetItem(Guid id)
