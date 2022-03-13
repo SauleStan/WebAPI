@@ -38,7 +38,7 @@ namespace WebAPI.Controllers
 
         // POST api/<ItemsController>
         [HttpPost]
-        public async Task AddItem([FromBody] ItemNoIdDto newItem)
+        public async Task AddItemAsync([FromBody] ItemNoIdDto newItem)
         {
             Item item = new(newItem.Name, newItem.Price);
             await _itemsRepository.AddItemAsync(item);
