@@ -32,6 +32,11 @@ namespace WebAPI.Repositories
             return _dataContext.Items;
         }
 
+        public async Task<IEnumerable<Item>> GetItemsAsync()
+        {
+            return await Task.Run(() => _dataContext.Items);
+        }
+
         public void UpdateItem(Guid id, Item item)
         {
             var dbItem = GetItem(id);

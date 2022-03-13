@@ -30,6 +30,11 @@ namespace WebAPI.Repositories
             return ItemsList;
         }
 
+        public Task<IEnumerable<Item>> GetItemsAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdateItem(Guid id, Item item)
         {
             foreach( var itemInList in ItemsList.Where(item => item.Id == id))

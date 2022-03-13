@@ -18,9 +18,9 @@ namespace WebAPI.Controllers
 
         // GET: api/<ItemsController>
         [HttpGet]
-        public IEnumerable<Item> GetItems()
+        public async Task<IEnumerable<Item>> GetItems()
         {
-            var items = _itemsRepository.GetItems();
+            var items = await _itemsRepository.GetItemsAsync();
             return items;
         }
 
