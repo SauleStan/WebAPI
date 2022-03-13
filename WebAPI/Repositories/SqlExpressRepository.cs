@@ -18,18 +18,13 @@ namespace WebAPI.Repositories
 
         public void DeleteItem(Guid id)
         {
-            _dataContext.Remove(GetItem(id));
+            _dataContext.Remove(GetItemAsync(id));
             _dataContext.SaveChanges();
         }
 
-        public Item GetItem(Guid id)
+        public async Task<Item> GetItemAsync(Guid id)
         {
-            return _dataContext.Find<Item>(id);
-        }
-
-        public IEnumerable<Item> GetItems()
-        {
-            return _dataContext.Items;
+            return await _dataContext.FindAsync<Item>(id);
         }
 
         public async Task<IEnumerable<Item>> GetItemsAsync()
@@ -37,13 +32,13 @@ namespace WebAPI.Repositories
             return await Task.Run(() => _dataContext.Items);
         }
 
-        public void UpdateItem(Guid id, Item item)
+        public async Task UpdateItemAsync(Guid id, Item item)
         {
-            var dbItem = GetItem(id);
+            var dbItem = await GetItemAsync(id);
             dbItem.Name = item.Name;
             dbItem.Price = item.Price;
-            _dataContext.Update(dbItem);
-            _dataContext.SaveChanges();
+            await Task.Run(()=>_dataContext.Update(dbItem));
+            await _dataContext.SaveChangesAsync();
         }
     }
 }

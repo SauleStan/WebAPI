@@ -26,9 +26,9 @@ namespace WebAPI.Controllers
 
         // GET api/<ItemsController>/{id}
         [HttpGet("{id}")]
-        public ActionResult<Item> GetItem(Guid id)
+        public async Task<ActionResult<Item>> GetItemAsync(Guid id)
         {
-            var item = _itemsRepository.GetItem(id);
+            var item = await _itemsRepository.GetItemAsync(id);
             if (item is null)
             {
                 return NotFound();
@@ -46,10 +46,10 @@ namespace WebAPI.Controllers
 
         // PUT api/<ItemsController>/{id}
         [HttpPut("{id}")]
-        public void UpdateItem(Guid id, [FromBody] ItemNoIdDto item)
+        public async Task UpdateItemAsync(Guid id, [FromBody] ItemNoIdDto item)
         {
             Item newItem = new(item.Name, item.Price);
-            _itemsRepository.UpdateItem(id, newItem);
+            await _itemsRepository.UpdateItemAsync(id, newItem);
         }
 
         // DELETE api/<ItemsController>/{id}
