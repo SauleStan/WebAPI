@@ -38,10 +38,10 @@ namespace WebAPI.Controllers
 
         // POST api/<ItemsController>
         [HttpPost]
-        public void AddItem([FromBody] ItemNoIdDto newItem)
+        public async Task AddItem([FromBody] ItemNoIdDto newItem)
         {
             Item item = new(newItem.Name, newItem.Price);
-            _itemsRepository.AddItem(item);
+            await _itemsRepository.AddItemAsync(item);
         }
 
         // PUT api/<ItemsController>/{id}

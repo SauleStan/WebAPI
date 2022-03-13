@@ -8,6 +8,6 @@ namespace WebAPI.Repositories
         public Task<Item> GetItemAsync(Guid id);
         public void DeleteItem(Guid id);
         public Task UpdateItemAsync(Guid id, Item item);
-        public void AddItem(Item item);
+        public Task AddItemAsync(Item item);
     }
 }

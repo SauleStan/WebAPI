@@ -10,10 +10,10 @@ namespace WebAPI.Repositories
         {
             _dataContext = context;
         }
-        public void AddItem(Item item)
+        public async Task AddItemAsync(Item item)
         {
-            _dataContext.Items.Add(item);
-            _dataContext.SaveChanges();
+            await _dataContext.Items.AddAsync(item);
+            await _dataContext.SaveChangesAsync();
         }
 
         public void DeleteItem(Guid id)
