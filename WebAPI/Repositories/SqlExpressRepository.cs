@@ -16,10 +16,11 @@ namespace WebAPI.Repositories
             await _dataContext.SaveChangesAsync();
         }
 
-        public void DeleteItem(Guid id)
+        public async Task DeleteItemAsync(Guid id)
         {
-            _dataContext.Remove(GetItemAsync(id));
-            _dataContext.SaveChanges();
+            var dbItem = await GetItemAsync(id);
+            await Task.Run(()=>_dataContext.Remove(dbItem));
+            await _dataContext.SaveChangesAsync();
         }
 
         public async Task<Item> GetItemAsync(Guid id)

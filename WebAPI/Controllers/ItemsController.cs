@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
 
         // GET: api/<ItemsController>
         [HttpGet]
-        public async Task<IEnumerable<Item>> GetItems()
+        public async Task<IEnumerable<Item>> GetItemsAsync()
         {
             var items = await _itemsRepository.GetItemsAsync();
             return items;
@@ -54,9 +54,9 @@ namespace WebAPI.Controllers
 
         // DELETE api/<ItemsController>/{id}
         [HttpDelete("{id}")]
-        public void DeleteItem(Guid id)
+        public async Task DeleteItemAsync(Guid id)
         {
-            _itemsRepository.DeleteItem(id);
+            await _itemsRepository.DeleteItemAsync(id);
         }
     }
 }
