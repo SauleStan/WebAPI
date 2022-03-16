@@ -4,3 +4,4 @@
 - CRUD operations
 - connection to database
 - EF framework
+- Asynchronous programming
