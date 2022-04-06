@@ -12,9 +12,10 @@ namespace WebAPI.Repositories
             _dataContext = context;
         }
 
-        public Task AddCharacterAsync([FromBody] Character character)
+        public async Task AddCharacterAsync([FromBody] Character character)
         {
-            throw new NotImplementedException();
+            await _dataContext.Characters.AddAsync(character);
+            await _dataContext.SaveChangesAsync();
         }
 
         public async Task AddItemAsync(Item item)
@@ -28,9 +29,16 @@ namespace WebAPI.Repositories
             throw new NotImplementedException();
         }
 
-        public Task DeleteCharacterAsync(Guid id)
+        public async Task DeleteCharacterAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var dbCharacter = await GetCharacterAsync(id);
+            var dbItems = await Task.Run(() => _dataContext.Items.Where(x => x.CharacterId == id));
+            foreach (var dbItem in dbItems)
+            {
+                dbItem.CharacterId = null;
+            }
+            await Task.Run(() => _dataContext.Characters.Remove(dbCharacter));
+            await _dataContext.SaveChangesAsync();
         }
 
         public Task DeleteFromCharacterInventoryAsync(Guid characterId, Guid itemId)
@@ -45,9 +53,9 @@ namespace WebAPI.Repositories
             await _dataContext.SaveChangesAsync();
         }
 
-        public Task<ActionResult<Character>> GetCharacterAsync(Guid id)
+        public async Task<Character> GetCharacterAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _dataContext.Characters.FindAsync(id);
         }
 
         public Task<IEnumerable<Item>> GetCharacterInventoryAsync(Guid id)
@@ -55,9 +63,9 @@ namespace WebAPI.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Character>> GetCharactersAsync()
+        public async Task<IEnumerable<Character>> GetCharactersAsync()
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => _dataContext.Characters);
         }
 
         public async Task<Item> GetItemAsync(Guid id)
@@ -70,9 +78,21 @@ namespace WebAPI.Repositories
             return await Task.Run(() => _dataContext.Items);
         }
 
-        public Task UpdateCharacterAsync(Guid id, [FromBody] Character character)
+        public async Task UpdateCharacterAsync(Guid id, Character character)
         {
-            throw new NotImplementedException();
+            Character dbCharacter = await GetCharacterAsync(id);
+            dbCharacter.Name = character.Name;
+            dbCharacter.CharacterClass = character.CharacterClass;
+            dbCharacter.Level = character.Level;
+            dbCharacter.Health = character.Health;
+            dbCharacter.Experience = character.Experience;
+            if(character.Inventory != null)
+            {
+                dbCharacter.Inventory = character.Inventory;
+            }
+
+            await Task.Run(() => _dataContext.Update(dbCharacter));
+            await _dataContext.SaveChangesAsync();
         }
 
         public async Task UpdateItemAsync(Guid id, Item item)

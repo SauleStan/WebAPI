@@ -9,6 +9,7 @@ namespace WebAPI.Models
         public int Price { get; set; }
         [Required]
         public string Name { get; set; }
+        public Guid? CharacterId { get; set; }
         
         public Item(string Name, int Price)
         {
